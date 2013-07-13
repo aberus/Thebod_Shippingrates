@@ -171,7 +171,14 @@ class Thebod_Shippingrates_Model_Carrier extends Mage_Shipping_Model_Carrier_Abs
                 $method->setMethod($rate['code']);
                 $method->setMethodTitle($rate['title']);
 
-                $method->setPrice($rate['price']);
+                if ($request->getFreeShipping()) {
+                    $shippingPrice = 0;
+                } else {
+                    $shippingPrice = $rate['price'];
+                }
+                
+                $method->setPrice($shippingPrice);
+                //$method->setPrice($rate['price']);
 
                 $result->append($method);
             }
